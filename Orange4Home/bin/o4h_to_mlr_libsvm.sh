@@ -76,14 +76,14 @@ awk -F ',' '
 }
 ' "${TMP_DIR}/worker_data.csv" > "${TMP_DIR}/dense_input_file_as_libsvm.train.txt"
 
-# make it sparce
+# make it sparse
 if [ -z "${KEEP_ZERO_VALUES}" ]
 then
     awk -F ' ' '
 {
 
    printf "%d",$1
-   for (i=1;i<=NF;i++) {
+   for (i=2;i<=NF;i++) {
       if ( $i ~ /[0-9]+\:0\.(0+)$/ ) {
          printf " "
       } else {
@@ -109,7 +109,6 @@ num_train_total=$( wc -l < "${TMP_DIR}/data_only.csv" )
 
 feature_dim=$(
     nb_separators=$( head -1 "${TMP_DIR}/data_only.csv" | tr -cd ',' | wc -c )
-    expr ${nb_separators} - 1
 )
 
 num_train_this_partition=$( wc -l < "${TMP_DIR}/input_file_as_libsvm.train.txt" )
