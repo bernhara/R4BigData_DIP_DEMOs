@@ -19,7 +19,7 @@ fi
 #
 # list of extra args added to the trainWorker command
 #
-: ${TRAINING_TUNING_ARGs:=''}
+: ${TRAINING_ARGs:=''}
 
 
 Usage ()
@@ -179,7 +179,7 @@ docker run \
    -e DATASETS_DIR=/home/dip/datasets \
    \
    s-eunuc:5000/dip/mlr-worker:latest \
-   /home/dip/bin/trainWorker.sh --my_wk_id=${worker_index} ${trainWorker_peer_arg_list} -- ${TRAINING_TUNING_ARGs} \
+   /home/dip/bin/trainWorker.sh --my_wk_id=${worker_index} ${trainWorker_peer_arg_list} -- ${TRAINING_ARGs} \
 "
     else
 
