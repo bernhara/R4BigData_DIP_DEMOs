@@ -69,7 +69,7 @@ awk -F ',' '
    printf "%d",$1
 
    # print all feature values
-   for(i=2;i<NF;i++) {
+   for(i=2;i<=NF;i++) {
       printf " %d:%.15f",i-2,$i
    }
    print ""
@@ -130,7 +130,7 @@ then
        printf "%d",$1-1
 
        # print all feature values
-       for(i=2;i<NF;i++) {
+       for(i=2;i<=NF;i++) {
           printf " %s",$i
        }
        print ""
