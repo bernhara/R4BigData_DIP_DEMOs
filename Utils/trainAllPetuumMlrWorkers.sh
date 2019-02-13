@@ -1,7 +1,5 @@
 #! /bin/bash
 
-# $Id: trainAllPetuumMlrWorkers.sh,v 1.24 2019/02/12 11:39:35 orba6563 Exp $
-
 HERE=`dirname $0`
 CMD=`basename $0`
 
