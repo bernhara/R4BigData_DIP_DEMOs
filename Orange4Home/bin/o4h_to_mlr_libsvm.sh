@@ -3,6 +3,7 @@
 # $Id: o4h_to_mlr_libsvm.sh,v 1.21 2019/02/13 08:55:10 orba6563 Exp $
 
 HERE=$( dirname "$0" )
+DEMO_ROOT_DIR="${HERE}/.."
 
 : ${rebase_locations_to_zero:=true}
 
@@ -28,11 +29,11 @@ then
     fi
 fi
 
-TMP_DIR="${HERE}/tmp"
+TMP_DIR="${DEMO_ROOT_DIR}/tmp"
 
 mkdir -p "${TMP_DIR}"
 
-: ${INPUT_FILE=../reference_dataset/o4h_location_labels_classify.csv}
+: ${INPUT_FILE="${DEMO_ROOT_DIR}/reference_dataset/o4h_location_labels_classify.csv"}
 
 : ${OUTPUT_FILE_NAME_PREFIX:=$( basename "${INPUT_FILE}" ".csv" )}
 
@@ -150,6 +151,6 @@ else
     file_location_suffix=""
 fi
 
-cp "${TMP_DIR}/input_file_as_libsvm.train.txt" "${HERE}/../out/${OUTPUT_FILE_NAME_PREFIX}.libsvm.train.txt${file_location_suffix}"
-cp "${TMP_DIR}/rebased_input_file_as_libsvm.train.txt" "${HERE}/../out/${OUTPUT_FILE_NAME_PREFIX}.libsvm.train.txt${file_location_suffix}.meta"
+cp "${TMP_DIR}/input_file_as_libsvm.train.txt" "${DEMO_ROOT_DIR}/out/${OUTPUT_FILE_NAME_PREFIX}.libsvm.train.txt${file_location_suffix}"
+cp "${TMP_DIR}/rebased_input_file_as_libsvm.train.txt" "${DEMO_ROOT_DIR}/out/${OUTPUT_FILE_NAME_PREFIX}.libsvm.train.txt${file_location_suffix}.meta"
 
