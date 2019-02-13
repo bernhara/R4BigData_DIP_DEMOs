@@ -184,6 +184,7 @@ docker run \
     else
 
 	# FIXME: is no more up to date
+	Usage "non docker version not yet implemented"
 	local_worker_command="\
 ${worker_ssh_remote_path_specification}/trainWorker.sh --output_prefix_file ${worker_remote_output_prefix} ${worker_index} ${trainWorker_peer_arg_list} \
 "
