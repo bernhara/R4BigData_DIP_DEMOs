@@ -1,9 +1,9 @@
 #! /bin/bash
 
-# $Id: DEMO_train_1_worker.sh,v 1.2 2019/02/12 08:21:22 orba6563 Exp orba6563 $
+HERE=$( dirname $0 )
+CMD=$( basename $0 )
 
-HERE=`dirname $0`
-CMD=`basename $0`
+DEMO_ROOT_DIR="${HERE}/.."
 
 : ${REMOTE_ROOT_DIR:=/home/orba6563/PETUUM/DEMOs}
 
