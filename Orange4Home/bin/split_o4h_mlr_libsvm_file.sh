@@ -1,7 +1,5 @@
 #! /bin/bash
 
-# $Id: split_o4h_mlr_libsvm_file.sh,v 1.3 2019/02/13 08:56:27 orba6563 Exp $
-
 #
 # TODO: not yet implemented
 #
