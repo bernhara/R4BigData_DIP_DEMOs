@@ -57,7 +57,7 @@ then
           print $0
        }
     }
-    ' < "${TMP_DIR}/data_only.csv" > "${TMP_DIR}/worker_data.csv"
+    ' "${TMP_DIR}/data_only.csv" > "${TMP_DIR}/worker_data.csv"
 else
     cp "${TMP_DIR}/data_only.csv" "${TMP_DIR}/worker_data.csv"
 fi
@@ -74,14 +74,25 @@ awk -F ',' '
    }
    print ""
 }
-' < "${TMP_DIR}/worker_data.csv" > "${TMP_DIR}/dense_input_file_as_libsvm.train.txt"
+' "${TMP_DIR}/worker_data.csv" > "${TMP_DIR}/dense_input_file_as_libsvm.train.txt"
 
 # make it sparce
 if [ -z "${KEEP_ZERO_VALUES}" ]
 then
-    sed \
-	-e 's/ [0-9]\+:0\.0\+/ /g' \
-	"${TMP_DIR}/dense_input_file_as_libsvm.train.txt" > "${TMP_DIR}/multiple_space_input_file_as_libsvm.train.txt"
+    awk -F ' ' '
+{
+
+   printf "%d",$1
+   for (i=1;i<=NF;i++) {
+      if ( $i ~ /[0-9]+\:0\.(0+)$/ ) {
+         printf " "
+      } else {
+         printf " %s",$i
+      }
+   }
+   print ""
+}
+' "${TMP_DIR}/dense_input_file_as_libsvm.train.txt" > "${TMP_DIR}/multiple_space_input_file_as_libsvm.train.txt"
 
     tr -s ' ' < "${TMP_DIR}/multiple_space_input_file_as_libsvm.train.txt" > "${TMP_DIR}/input_file_as_libsvm.train.txt"
 
@@ -135,7 +146,7 @@ then
        }
        print ""
     }
-' < "${TMP_DIR}/input_file_as_libsvm.train.txt" > "${TMP_DIR}/rebased_input_file_as_libsvm.train.txt"
+' "${TMP_DIR}/input_file_as_libsvm.train.txt" > "${TMP_DIR}/rebased_input_file_as_libsvm.train.txt"
     :
 else
     cp "${TMP_DIR}/input_file_as_libsvm.train.txt" "${TMP_DIR}/rebased_input_file_as_libsvm.train.txt"
