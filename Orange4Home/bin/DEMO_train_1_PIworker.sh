@@ -36,5 +36,5 @@ then
 fi
 
 TRAINING_TUNING_ARGs="${MLR_TRAINING_ARGs}" \
-"${HERE}/../Utils/trainAllPetuumMlrWorkers.sh" \
+"${DEMO_ROOT_DIR}/../Utils/trainAllPetuumMlrWorkers.sh" \
     ${worker_remote_user_01}@${worker_hostname_01}:${REMOTE_ROOT_DIR}
