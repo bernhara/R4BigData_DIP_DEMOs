@@ -32,7 +32,7 @@ TMP_DIR="${HERE}/tmp"
 
 mkdir -p "${TMP_DIR}"
 
-: ${INPUT_FILE=o4h_location_labels_classify.csv}
+: ${INPUT_FILE=../reference_dataset/o4h_location_labels_classify.csv}
 
 : ${OUTPUT_FILE_NAME_PREFIX:=$( basename "${INPUT_FILE}" ".csv" )}
 
@@ -150,6 +150,6 @@ else
     file_location_suffix=""
 fi
 
-cp "${TMP_DIR}/input_file_as_libsvm.train.txt" "${OUTPUT_FILE_NAME_PREFIX}.libsvm.train.txt${file_location_suffix}"
-cp "${TMP_DIR}/rebased_input_file_as_libsvm.train.txt" "${OUTPUT_FILE_NAME_PREFIX}.libsvm.train.txt${file_location_suffix}.meta"
+cp "${TMP_DIR}/input_file_as_libsvm.train.txt" "${HERE}/../out/${OUTPUT_FILE_NAME_PREFIX}.libsvm.train.txt${file_location_suffix}"
+cp "${TMP_DIR}/rebased_input_file_as_libsvm.train.txt" "${HERE}/../out/${OUTPUT_FILE_NAME_PREFIX}.libsvm.train.txt${file_location_suffix}.meta"
 
