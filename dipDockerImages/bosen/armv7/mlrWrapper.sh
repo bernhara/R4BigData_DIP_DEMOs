@@ -88,7 +88,7 @@ do
     arg_name="${i%:*}"
     arg_value="${i#*:}"
 
-    if grep -- "--${arg_name}=" <<< "$@"
+    if grep --silent -- "--${arg_name}=" <<< "$@"
     then
 	# contains arg
 	:
@@ -112,7 +112,7 @@ mandatory_arg_array=(
 
 for i in "${mandatory_arg_array[@]}"
 do
-    if grep -- "--${i}=" <<< "${mlr_launch_args}"
+    if grep --silent -- "--${i}=" <<< "${mlr_launch_args}"
     then
 	# contains arg
 	:
