@@ -1,7 +1,5 @@
 #! /bin/bash
 
-set -x
-
 HERE=`dirname $0`
 CMD=`basename $0`
 
@@ -180,7 +178,7 @@ else
 fi
 
 command='
-"${MLR_MAIN}" \
+"${MLR_WRAPPER}" \
    --client_id="${this_worker_index}" \
    --num_clients=${nb_workers} \
    --global_data=${mlr_arg_global_data} \
