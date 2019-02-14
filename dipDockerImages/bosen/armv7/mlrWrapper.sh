@@ -4,7 +4,7 @@
 # launches mlr binary file, providing reasonable arguments in not provided
 #
 
-: ${mlr:="/share/Petuum/SRCs_sync_with_git/branches/port_to_raspberry_pi2/bosen/app/mlr/bin/mlr_main"}
+: ${MLR_MAIN:="/share/Petuum/SRCs_sync_with_git/branches/port_to_raspberry_pi2/bosen/app/mlr/bin/mlr_main"}
 
 #
 # This comes from the documentation
@@ -179,6 +179,6 @@ set -a
 : ${GLOG_minloglevel=:0}
 set +a
 
-${mlr} "$@"
+${MLR_MAIN} "$@"
 
 exit $?
