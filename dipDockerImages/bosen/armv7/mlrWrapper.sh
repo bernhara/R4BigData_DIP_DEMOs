@@ -171,21 +171,16 @@ then
     MLR_TIMEOUT=0
 fi
 
-if expr "${MLR_TIMEOUT}" + 0
+if [ "$( expr "${MLR_TIMEOUT}" + 0 2>/dev/null )" != "${MLR_TIMEOUT}" ]
 then
-    # is an integer
-    :
-else
     echo "${COMMAND}: MLR_TIMEOUT value \"${MLR_TIMEOUT}\" is not an integer value" 1>&2
     exit 1
-    fi
 fi
 
 if [ "${MLR_TIMEOUT}" -lt 0 ]
 then
     echo "${COMMAND}: MLR_TIMEOUT value \"${MLR_TIMEOUT}\" should be a positive value" 1>&2
     exit 1
-    fi
 fi
 
 
@@ -200,7 +195,7 @@ set -a
 : ${GLOG_minloglevel=:0}
 set +a
 
-if [ -n "${MLR_TIMEOUT}" ]
+if [ "${MLR_TIMEOUT}" -gt 0 ]
 then
     timeout --preserve-status "${MLR_TIMEOUT}m" ${MLR_MAIN} "$@"
 else
