@@ -5,7 +5,7 @@ CMD=$( basename $0 )
 
 DEMO_ROOT_DIR="${HERE}/.."
 
-: ${REMOTE_ROOT_DIR:=/home/orba6563/PETUUM/DEMOs}
+: ${REMOTE_DATASET_DIR:=/home/orba6563/PETUUM/DEMOs/Orange4Home/datasets}
 
 : ${worker_hostname_01:="s-pituum-01"}
 
@@ -39,4 +39,6 @@ then
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --output_file_prefix=/tmp/ZZ_"
 fi
 
-TRAINING_ARGs="${MLR_TRAINING_ARGs}" "${DEMO_ROOT_DIR}/../Utils/trainAllPetuumMlrWorkers.sh" ${worker_remote_user_01}@${worker_hostname_01}:${REMOTE_ROOT_DIR}
+TRAINING_ARGs="${MLR_TRAINING_ARGs}" \
+"${DEMO_ROOT_DIR}/../Utils/trainAllPetuumMlrWorkers.sh" \
+${worker_remote_user_01}@${worker_hostname_01}:${REMOTE_DATASET_DIR}
