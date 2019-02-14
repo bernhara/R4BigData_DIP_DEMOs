@@ -2,6 +2,8 @@
 # default values for trainWorker, matching the docker container
 #
 
-: ${MLR_MAIN:=/home/dip/bin/mlr_main}
-: ${DATASETS_DIR:=/home/dip/datasets}
-: ${NB_THREADS:=3}
+#
+# no specific configuration
+# provided in Docker image environement variables
+#
+
