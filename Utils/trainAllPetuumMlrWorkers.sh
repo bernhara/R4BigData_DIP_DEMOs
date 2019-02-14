@@ -170,13 +170,10 @@ docker run \
    --rm -it \
    --name ${overlay_worker_hostname} \
    \
-   -v ${worker_ssh_remote_path_specification}/datasets:/home/dip/datasets:ro \
+   -v ${worker_ssh_remote_path_specification}/:/home/dip/datasets/:ro \
    -v ${worker_remote_output_prefix}/:/tmp/mlr_out/ \
    \
    -v /home/orba6563/tmp/bin:/home/dip/bin
-   \
-   -e DATAFILE_NAME_PREFIX=PITUUM_CLUSTER_DEMO \
-   -e DATASETS_DIR=/home/dip/datasets \
    \
    s-eunuc:5000/dip/mlr-worker:latest \
    /home/dip/bin/trainWorker.sh --my_wk_id=${worker_index} ${trainWorker_peer_arg_list} -- ${TRAINING_ARGs} \
