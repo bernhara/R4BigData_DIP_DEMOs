@@ -39,6 +39,4 @@ then
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --output_file_prefix=/tmp/ZZ_"
 fi
 
-TRAINING_TUNING_ARGs="${MLR_TRAINING_ARGs}" \
-"${DEMO_ROOT_DIR}/../Utils/trainAllPetuumMlrWorkers.sh" \
-    ${worker_remote_user_01}@${worker_hostname_01}:${REMOTE_ROOT_DIR}
+TRAINING_ARGs="${MLR_TRAINING_ARGs}" "${DEMO_ROOT_DIR}/../Utils/trainAllPetuumMlrWorkers.sh" ${worker_remote_user_01}@${worker_hostname_01}:${REMOTE_ROOT_DIR}
