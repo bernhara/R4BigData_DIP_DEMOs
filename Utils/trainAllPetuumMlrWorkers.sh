@@ -170,7 +170,7 @@ docker run \
    --rm -it \
    --name ${overlay_worker_hostname} \
    \
-   -e MLR_TIMEOUT=5 \
+   -e TRAINING_TIMEOUT=5 \
    \
    -v ${worker_ssh_remote_path_specification}/:/home/dip/datasets/:ro \
    -v ${worker_remote_output_prefix}/:/tmp/mlr_out/ \
