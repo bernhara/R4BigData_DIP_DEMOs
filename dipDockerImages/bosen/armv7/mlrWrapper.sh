@@ -5,6 +5,7 @@
 #
 
 : ${MLR_MAIN:="/share/Petuum/SRCs_sync_with_git/branches/port_to_raspberry_pi2/bosen/app/mlr/bin/mlr_main"}
+: ${MLR_TIMEOUT:=0}
 
 #
 # This comes from the documentation
@@ -165,6 +166,29 @@ then
 fi
 
 
+if [ -z "${MLR_TIMEOUT}" ]
+then
+    MLR_TIMEOUT=0
+fi
+
+if expr "${MLR_TIMEOUT}" + 0
+then
+    # is an integer
+    :
+else
+    echo "${COMMAND}: MLR_TIMEOUT value \"${MLR_TIMEOUT}\" is not an integer value" 1>&2
+    exit 1
+    fi
+fi
+
+if [ "${MLR_TIMEOUT}" -lt 0 ]
+then
+    echo "${COMMAND}: MLR_TIMEOUT value \"${MLR_TIMEOUT}\" should be a positive value" 1>&2
+    exit 1
+    fi
+fi
+
+
 if [ -n "${VERBOSE}" ]
 then
     set -x
@@ -176,6 +200,11 @@ set -a
 : ${GLOG_minloglevel=:0}
 set +a
 
-${MLR_MAIN} "$@"
+if [ -n "${MLR_TIMEOUT}" ]
+then
+    timeout --preserve-status "${MLR_TIMEOUT}m" ${MLR_MAIN} "$@"
+else
+    ${MLR_MAIN} "$@"
+fi
 
 exit $?
