@@ -5,7 +5,7 @@
 #
 
 : ${MLR_MAIN:="/share/Petuum/SRCs_sync_with_git/branches/port_to_raspberry_pi2/bosen/app/mlr/bin/mlr_main"}
-: ${MLR_TIMEOUT:=0}
+: ${TRAINING_TIMEOUT:=0}
 
 #
 # This comes from the documentation
@@ -166,20 +166,20 @@ then
 fi
 
 
-if [ -z "${MLR_TIMEOUT}" ]
+if [ -z "${TRAINING_TIMEOUT}" ]
 then
-    MLR_TIMEOUT=0
+    TRAINING_TIMEOUT=0
 fi
 
-if [ "$( expr "${MLR_TIMEOUT}" + 0 2>/dev/null )" != "${MLR_TIMEOUT}" ]
+if [ "$( expr "${TRAINING_TIMEOUT}" + 0 2>/dev/null )" != "${TRAINING_TIMEOUT}" ]
 then
-    echo "${COMMAND}: MLR_TIMEOUT value \"${MLR_TIMEOUT}\" is not an integer value" 1>&2
+    echo "${COMMAND}: TRAINING_TIMEOUT value \"${TRAINING_TIMEOUT}\" is not an integer value" 1>&2
     exit 1
 fi
 
-if [ "${MLR_TIMEOUT}" -lt 0 ]
+if [ "${TRAINING_TIMEOUT}" -lt 0 ]
 then
-    echo "${COMMAND}: MLR_TIMEOUT value \"${MLR_TIMEOUT}\" should be a positive value" 1>&2
+    echo "${COMMAND}: TRAINING_TIMEOUT value \"${TRAINING_TIMEOUT}\" should be a positive value" 1>&2
     exit 1
 fi
 
@@ -195,9 +195,9 @@ set -a
 : ${GLOG_minloglevel=:0}
 set +a
 
-if [ "${MLR_TIMEOUT}" -gt 0 ]
+if [ "${TRAINING_TIMEOUT}" -gt 0 ]
 then
-    timeout --preserve-status "${MLR_TIMEOUT}m" ${MLR_MAIN} "$@"
+    timeout --preserve-status "${TRAINING_TIMEOUT}m" ${MLR_MAIN} "$@"
 else
     ${MLR_MAIN} "$@"
 fi
