@@ -34,4 +34,4 @@ COPY tmp_root /
 
 CMD ["/home/dip/bin/testit.sh"]
 
-ENV MLR_MAIN=/home/dip/bin/mlr_main GLOG_logtostderr=true GLOG_v=-1 GLOG_minloglevel=0 VERBOSE=false
+ENV MLR_MAIN=/home/dip/bin/mlr_main GLOG_logtostderr=true GLOG_v=-1 GLOG_minloglevel=0 VERBOSE=""
