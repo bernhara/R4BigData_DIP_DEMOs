@@ -1,7 +1,5 @@
 #! /bin/bash
 
-# $Id: o4h_to_mlr_libsvm.sh,v 1.21 2019/02/13 08:55:10 orba6563 Exp $
-
 HERE=$( dirname "$0" )
 DEMO_ROOT_DIR="${HERE}/.."
 
@@ -156,7 +154,8 @@ fi
 
 if [ -n "${location_number}" ]
 then
-    file_location_suffix=".X.${location_number}"
+    worker_index=$(( ${location_number} - 1 ))
+    file_location_suffix=".X.${worker_index}"
 else
     file_location_suffix=""
 fi
