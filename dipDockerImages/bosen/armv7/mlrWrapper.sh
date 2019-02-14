@@ -81,15 +81,12 @@ default_value_for_arg_array=(
      "num_comm_channels_per_client:1"
 )
 
-
 mlr_launch_default_args=''
 
 for i in "${default_value_for_arg_array[@]}"
 do
     arg_name="${i%:*}"
     arg_value="${i#*:}"
-    echo $arg_name
-    echo $arg_value
 
     if grep -- "--${arg_name}=" <<< "$@"
     then
@@ -148,7 +145,7 @@ train_file=$(
     getFileNameFormMlrLaunchArgs '--train_file'
 )
 
-if [ -r "${train_file}" ]
+if [ ! -r "${train_file}" ]
 then
     echo "${COMMAND}: train file \"${train_file}\" could not be read" 1>&2
     exit 1
@@ -160,7 +157,7 @@ test_file=$(
 
 if [ -n "${test_file}" ]
 then
-    if [ -r "${train_file}" ]
+    if [ ! -r "${test_file}" ]
     then
 	echo "${COMMAND}: test file \"${test_file}\" could not be read" 1>&2
 	exit 1
