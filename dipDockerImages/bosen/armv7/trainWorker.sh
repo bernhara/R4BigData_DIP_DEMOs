@@ -13,8 +13,7 @@ then
 fi
 
 # Globals
-: ${PETUUM_INSTALL_DIR:=/share/PLMS}
-: ${MLR_MAIN:="${PETUUM_INSTALL_DIR}/bosen/app/mlr/bin/mlr_main"}
+: ${MLR_WRAPPER:="${HERE}/mlrWrapper.sh"}
 
 Usage ()
 {
@@ -189,30 +188,6 @@ command='
    \
    ${mlr_args} \
 '
-
-XXXXcommand="
-mlr="${MLR_MAIN}" \
-\
-GLOG_logtostderr=true \
-GLOG_v=-1 GLOG_minloglevel=0 \
-\
-hostfile=${tmp_dir}/localserver \
-num_app_threads=${NB_THREADS} \
-num_clients="${nb_workers}" \
-client_id="${this_worker_index}" \
-global_data="${mlr_arg_global_data}" \
-output_file_prefix="${output_prefix_file}" \
-\
-train_file="${train_file}" \
-lr_decay_rate=${lr_decay_rate:-0.99} \
-num_train_eval=${num_train_eval:-10000} \
-num_test_eval=${num_test_eval:-20} \
-perform_test=${perform_test:-false} \
-num_batches_per_eval=${num_batches_per_eval:-10} \
-lambda=${lambda:-0} \
-\
-"${HERE}/mlrWrapper.sh" ${mlr_args} \
-"
 
 if ${dryrun}
 then
