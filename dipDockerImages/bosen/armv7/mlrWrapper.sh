@@ -145,13 +145,13 @@ getArgValue () {
 }
 
 
-global_data=$( getArgValue '--global_data' "${mlr_launch_args}" )
+global_data=$( getArgValue '--global_data' ${mlr_launch_args} )
 case "${global_data}" in
     "true")
 	data_file_suffix=''
 	;;
     "false")
-	client_id=$( getArgValue '--client_id' )
+	client_id=$( getArgValue '--client_id' ${mlr_launch_args} )
 	data_file_suffix='.X.${client_id}'
 	;;
     *)
@@ -160,7 +160,7 @@ case "${global_data}" in
 esac
 
 train_file_prefix=$(
-    getArgValue '--train_file' "${mlr_launch_args}"
+    getArgValue '--train_file' ${mlr_launch_args}
 )
 train_file="${train_file_prefix}${data_file_suffix}"
 
@@ -171,7 +171,7 @@ then
 fi
 
 test_file_prefix=$(
-    getArgValue '--test_file' "${mlr_launch_args}"
+    getArgValue '--test_file' ${mlr_launch_args}
 )
 test_file="${test_file_prefix}${data_file_suffix}"
 
