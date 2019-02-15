@@ -212,13 +212,13 @@ ${worker_ssh_remote_specification} \
 # compute globals
 
 : ${petuum_interworker_tcp_port:=9999}
-petuum_workers_specification_list=( "${petuum_worker_args_table[@]}" )
-num_clients=${#petuum_workers_specification_list[@]}
+petuum_workers_specification_table=( "${petuum_worker_args_table[@]}" )
+num_clients=${#petuum_workers_specification_table[@]}
 trainWorker_peer_arg_list=$( build_trainWorker_peer_arg_list )
 
 # lauch all workers
 
-for worker_specification in "${petuum_workers_specification_list[@]}"
+for worker_specification in "${petuum_workers_specification_table[@]}"
 do
     set -- ${worker_specification}
     worker_index="$1"
@@ -282,7 +282,7 @@ done
 
 # it is located on worker 0 (the first in the list)
 
-set -- ${petuum_workers_specification_list[0]}
+set -- ${petuum_workers_specification_table[0]}
 worker_ssh_remote_user="$2"
 worker_ssh_hostname="$3"
 
