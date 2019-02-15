@@ -128,6 +128,7 @@ done
 #
 
 getArgValue () {
+    set +x
     arg_name="$1"
     shift
     arg_list="$@"
@@ -142,8 +143,11 @@ getArgValue () {
 	    break
 	fi
     done
+    set -x
 }
 
+
+set -x
 
 global_data=$( getArgValue '--global_data' ${mlr_launch_args} )
 case "${global_data}" in
@@ -152,7 +156,7 @@ case "${global_data}" in
 	;;
     "false")
 	client_id=$( getArgValue '--client_id' ${mlr_launch_args} )
-	data_file_suffix='.X.${client_id}'
+	data_file_suffix=".X.${client_id}"
 	;;
     *)
 	echo "${COMMAND}:bad value \"${global_data} for \"--global_data\"" 1>&2
