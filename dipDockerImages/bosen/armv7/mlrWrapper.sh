@@ -127,13 +127,15 @@ done
 # pre-check provided args to prevent mlr core dump
 #
 
-getFileNameFormMlrLaunchArgs () {
-    arg="$1"
+getArgValue () {
+    arg_name="$1"
+    shift
+    arg_list="$@"
 
-    for i in ${mlr_launch_args}
+    for i in ${arg_list}
     do
 	arg="${i%=*}"
-	if [ "${arg}" = "${1}" ]
+	if [ "${arg}" = "${arg_name}" ]
 	then
 	    arg_value="${i#*=*}"
 	    echo "${arg_value}"
@@ -142,9 +144,25 @@ getFileNameFormMlrLaunchArgs () {
     done
 }
 
-train_file=$(
-    getFileNameFormMlrLaunchArgs '--train_file'
+
+global_data=$( getArgValue '--global_data' "${mlr_launch_args}" )
+case "${global_data}" in
+    "true")
+	data_file_suffix=''
+	;;
+    "false")
+	client_id=$( getArgValue '--client_id' )
+	data_file_suffix='.X.${client_id}'
+	;;
+    *)
+	echo "${COMMAND}:bad value \"${global_data} for \"--global_data\"" 1>&2
+	exit 1
+esac
+
+train_file_prefix=$(
+    getArgValue '--train_file' "${mlr_launch_args}"
 )
+train_file="${train_file_prefix}${data_file_suffix}"
 
 if [ ! -r "${train_file}" ]
 then
@@ -152,9 +170,10 @@ then
     exit 1
 fi
 
-test_file=$(
-    getFileNameFormMlrLaunchArgs '--test_file'
+test_file_prefix=$(
+    getArgValue '--test_file' "${mlr_launch_args}"
 )
+test_file="${test_file_prefix}${data_file_suffix}"
 
 if [ -n "${test_file}" ]
 then
