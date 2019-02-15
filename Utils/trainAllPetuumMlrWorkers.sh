@@ -20,7 +20,8 @@ fi
 # list of extra args added to the trainWorker command
 #
 : ${TRAINING_ARGs:=''}
-
+: ${WORKER_ENV_TRAINING_TIMEOUT:=5}
+: ${WORKER_ENV_VERBOSE:=''}
 
 Usage ()
 {
@@ -170,7 +171,8 @@ docker run \
    --rm -it \
    --name ${overlay_worker_hostname} \
    \
-   -e TRAINING_TIMEOUT=5 \
+   -e TRAINING_TIMEOUT="${WORKER_ENV_TRAINING_TIMEOUT}" \
+   -e VERBOSE="${WORKER_ENV_VERBOSE}" \
    \
    -v ${worker_ssh_remote_path_specification}/:/home/dip/datasets/:ro \
    -v ${worker_remote_output_prefix}/:/tmp/mlr_out/ \
