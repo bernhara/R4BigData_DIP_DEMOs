@@ -5,22 +5,26 @@ CMD=$( basename $0 )
 
 DEMO_ROOT_DIR="${HERE}/.."
 
-: ${REMOTE_DATASET_DIR:=/home/orba6563/PETUUM/DEMOs/Orange4Home/datasets}
+: ${DEFAULT_REMOTE_DATASET_DIR:=/home/orba6563/PETUUM/DEMOs/Orange4Home/datasets}
+: ${DEFAULT_REMOTE_USER:=orba6563}
+: ${DEFAULT_HOSTNAME_PREFIX:=s-pituum-}
 
 # limit training time to 5mn
 : ${WORKER_ENV_TRAINING_TIMEOUT=5}
 : ${WORKER_ENV_VERBOSE=1}
 
+NB_WORKERs=8
+
 trainAllWorkersArgs=''
 
-for i in $( seq 1 8 )
+for i in $( seq 1 ${NB_WORKERs} )
 do
     worker_index=$( printf '%02d'  $i )
 
     eval "env_var_val=\"\${host_${worker_index}}\""
     if [ -z "${env_var_val}" ]
     then
-	remote_host="s-pituum-${worker_index}"
+	remote_host="${DEFAULT_HOSTNAME_PREFIX}${worker_index}"
     else
 	remote_host="${env_var_val}"
     fi
@@ -28,7 +32,7 @@ do
     eval "env_var_val=\"\${user_${worker_index}}\""
     if [ -z "${env_var_val}" ]
     then
-	remote_user="orba6563"
+	remote_user="${DEFAULT_REMOTE_USER}"
     else
 	remote_user="${env_var_val}"
     fi
@@ -36,7 +40,7 @@ do
     eval "env_var_val=\"\${dir_${worker_index}}\""
     if [ -z "${env_var_val}" ]
     then
-	remote_dir="${REMOTE_DATASET_DIR}"
+	remote_dir="${DEFAULT_REMOTE_DATASET_DIR}"
     else
 	remote_dir="${env_var_val}"
     fi
@@ -46,22 +50,6 @@ do
     trainAllWorkersArgs="${trainAllWorkersArgs} ${newArgElement}"
 done
 
-exit 1
-
-    eval ': ${worker_hostname_${worker_index}:="s-pituum-${worker_index}"'
-P    eval ': ${worker_remote_dataset_dir_${worker_index}":="${REMOTE_DATASET_DIR}"}'
-
-
-
-: ${worker_hostname_01:="s-pituum-01"}
-: ${worker_hostname_02:="s-pituum-02"}
-: ${worker_hostname_03:="s-pituum-03"}
-: ${worker_hostname_04:="s-pituum-04"}
-: ${worker_hostname_05:="s-pituum-05"}
-: ${worker_hostname_06:="s-pituum-06"}
-: ${worker_hostname_07:="s-pituum-07"}
-
-: ${worker_remote_user_01:="orba6563"}
 
 if [ -z "${MLR_TRAINING_ARGs}" ]
 then
@@ -94,5 +82,4 @@ fi
 TRAINING_ARGs="${MLR_TRAINING_ARGs}" \
 WORKER_ENV_TRAINING_TIMEOUT="${WORKER_ENV_TRAINING_TIMEOUT}" \
 WORKER_ENV_VERBOSE="${WORKER_ENV_VERBOSE=1}" \
-"${DEMO_ROOT_DIR}/../Utils/trainAllPetuumMlrWorkers.sh" \
-${worker_remote_user_01}@${worker_hostname_01}:${REMOTE_DATASET_DIR}
+"${DEMO_ROOT_DIR}/../Utils/trainAllPetuumMlrWorkers.sh" ${trainAllWorkersArgs}
