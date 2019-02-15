@@ -212,7 +212,7 @@ ${worker_ssh_remote_specification} \
 # compute globals
 
 : ${petuum_interworker_tcp_port:=9999}
-petuum_workers_specification_list=${petuum_worker_args_table}
+petuum_workers_specification_list=( "${petuum_worker_args_table[@]}" )
 num_clients=${#petuum_workers_specification_list[@]}
 trainWorker_peer_arg_list=$( build_trainWorker_peer_arg_list )
 
