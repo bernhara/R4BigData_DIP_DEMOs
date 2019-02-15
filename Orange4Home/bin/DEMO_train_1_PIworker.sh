@@ -7,8 +7,12 @@ DEMO_ROOT_DIR="${HERE}/.."
 
 : ${REMOTE_DATASET_DIR:=/home/orba6563/PETUUM/DEMOs/Orange4Home/datasets}
 
-: ${worker_hostname_01:="s-pituum-01"}
+# limit training time to 5mn
+: ${WORKER_ENV_TRAINING_TIMEOUT=5}
+: ${WORKER_ENV_VERBOSE=1}
 
+
+: ${worker_hostname_01:="s-pituum-01"}
 : ${worker_remote_user_01:="orba6563"}
 
 if [ -z "${MLR_TRAINING_ARGs}" ]
@@ -40,5 +44,7 @@ then
 fi
 
 TRAINING_ARGs="${MLR_TRAINING_ARGs}" \
+WORKER_ENV_TRAINING_TIMEOUT="${WORKER_ENV_TRAINING_TIMEOUT}" \
+WORKER_ENV_VERBOSE="${WORKER_ENV_VERBOSE=1}" \
 "${DEMO_ROOT_DIR}/../Utils/trainAllPetuumMlrWorkers.sh" \
 ${worker_remote_user_01}@${worker_hostname_01}:${REMOTE_DATASET_DIR}
