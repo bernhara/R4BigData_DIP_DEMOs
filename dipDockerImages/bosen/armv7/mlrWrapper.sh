@@ -186,6 +186,7 @@ fi
 
 if [ -n "${VERBOSE}" ]
 then
+    echo "$0: enable verbosity" 1>&2
     set -x
 fi
 
