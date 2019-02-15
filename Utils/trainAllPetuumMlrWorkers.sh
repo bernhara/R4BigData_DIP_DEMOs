@@ -125,7 +125,7 @@ build_trainWorker_peer_arg_list () {
 
     worker_launcher_common_args=''
 
-    for worker_specification in "${petuum_workers_specification_list[@]}"
+    for worker_specification in "$@"
     do
 	set -- ${worker_specification}
 	worker_index="$1"
@@ -214,7 +214,7 @@ ${worker_ssh_remote_specification} \
 : ${petuum_interworker_tcp_port:=9999}
 petuum_workers_specification_table=( "${petuum_worker_args_table[@]}" )
 num_clients=${#petuum_workers_specification_table[@]}
-trainWorker_peer_arg_list=$( build_trainWorker_peer_arg_list )
+trainWorker_peer_arg_list=$( build_trainWorker_peer_arg_list "${petuum_workers_specification_table[@]}" )
 
 # lauch all workers
 
