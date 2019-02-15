@@ -107,6 +107,7 @@ num_train_total=$( wc -l < "${TMP_DIR}/data_only.csv" )
 
 feature_dim=$(
     nb_separators=$( head -1 "${TMP_DIR}/data_only.csv" | tr -cd ',' | wc -c )
+    echo "${nb_separators}"
 )
 
 num_train_this_partition=$( wc -l < "${TMP_DIR}/input_file_as_libsvm.train.txt" )
@@ -155,7 +156,7 @@ fi
 if [ -n "${location_number}" ]
 then
     worker_index=$(( ${location_number} - 1 ))
-    file_location_suffix=".X.${worker_index}"
+    file_location_suffix=".${worker_index}"
 else
     file_location_suffix=""
 fi
