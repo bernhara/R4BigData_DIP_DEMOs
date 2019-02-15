@@ -152,7 +152,7 @@ case "${global_data}" in
 	;;
     "false")
 	client_id=$( getArgValue '--client_id' ${mlr_launch_args} )
-	data_file_suffix=".X.${client_id}"
+	data_file_suffix=".${client_id}"
 	;;
     *)
 	echo "${COMMAND}:bad value \"${global_data} for \"--global_data\"" 1>&2
@@ -170,18 +170,27 @@ then
     exit 1
 fi
 
-test_file_prefix=$(
-    getArgValue '--test_file' ${mlr_launch_args}
+perform_test=$(
+    getArgValue '--perform_test' ${mlr_launch_args}
 )
-test_file="${test_file_prefix}${data_file_suffix}"
 
-if [ -n "${test_file}" ]
+if [ "${perform_test}" = "true" ]
 then
-    if [ ! -r "${test_file}" ]
+
+    test_file_prefix=$(
+	getArgValue '--test_file' ${mlr_launch_args}
+    )
+    test_file="${test_file_prefix}${data_file_suffix}"
+
+    if [ -n "${test_file}" ]
     then
-	echo "${COMMAND}: test file \"${test_file}\" could not be read" 1>&2
-	exit 1
+	if [ ! -r "${test_file}" ]
+	then
+	    echo "${COMMAND}: test file \"${test_file}\" could not be read" 1>&2
+	    exit 1
+	fi
     fi
+
 fi
 
 
