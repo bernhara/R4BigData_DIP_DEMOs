@@ -14,6 +14,7 @@ DEMO_ROOT_DIR="${HERE}/.."
 : ${WORKER_ENV_VERBOSE=1}
 
 NB_WORKERs=8
+NB_WORKERs=2
 
 trainAllWorkersArgs=''
 
@@ -55,7 +56,7 @@ if [ -z "${MLR_TRAINING_ARGs}" ]
 then
     MLR_TRAINING_ARGs=''
 
-    MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --train_file=/home/dip/datasets/zz.txt"
+    MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --train_file=/home/dip/datasets/o4h_location_labels_classify.libsvm.train.txt"
 
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --use_weight_file=false"
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --weight_file="
