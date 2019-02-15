@@ -233,7 +233,10 @@ do
 	echo "** would execute **: ${launch_command}"
     else
 	(
-	    ${launch_command}
+	    #!! ${launch_command}
+	    echo "+++++++++++++++++++++++++++++= # ${worker_index} TO STDOUT"
+	    echo "++++++++++++++++++++++++++++# ${worker_index} TO STERR" 1>&2
+	    false
 	    echo "$? ${worker_index} ${worker_ssh_hostname}">${tmp_dir}/worker-${worker_index}-${worker_ssh_hostname}.exit_status
 	) 2>${tmp_dir}/worker-${worker_index}-${worker_ssh_hostname}.stderr.log  1>${tmp_dir}/worker-${worker_index}-${worker_ssh_hostname}.stdout.log &
 
@@ -246,13 +249,14 @@ wait
 one_has_failed=false
 
 # test if some failed
+set -x
 exit_status_file_list=$( ls -1 ${tmp_dir}/worker-*.exit_status  2>/dev/null )
 for exit_status_file in ${exit_status_file_list}
 do
     set -- $( cat "${exit_status_file}" )
     exit_status=$1
     worker_index=$2
-    woker_ssh_hostname=$3
+    worker_ssh_hostname=$3
     if [ "${exit_status}" -ne "0" ]
     then
 
