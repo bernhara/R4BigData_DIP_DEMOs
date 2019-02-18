@@ -9,12 +9,17 @@ DEMO_ROOT_DIR="${HERE}/.."
 : ${DEFAULT_REMOTE_USER:=orba6563}
 : ${DEFAULT_HOSTNAME_PREFIX:=s-pituum-}
 
+: ${tmp_dir:=`mktemp -u -p "${DEMO_ROOT_DIR}/tmp"`}
+# make this default for all child scripts
+export tmp_dir
+
+
+
 # limit training time to 5mn
 : ${WORKER_ENV_TRAINING_TIMEOUT=5}
 : ${WORKER_ENV_VERBOSE=1}
 
 NB_WORKERs=8
-NB_WORKERs=2
 
 trainAllWorkersArgs=''
 
