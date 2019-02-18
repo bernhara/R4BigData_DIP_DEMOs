@@ -7,6 +7,10 @@ DEMO_ROOT_DIR="${HERE}/.."
 
 : ${REMOTE_DATASET_DIR:=/home/orba6563/PETUUM/DEMOs/Orange4Home/datasets}
 
+: ${tmp_dir:=`mktemp -u -p "${DEMO_ROOT_DIR}/tmp"`}
+# make this default for all child scripts
+export tmp_dir
+
 # limit training time to 5mn
 : ${WORKER_ENV_TRAINING_TIMEOUT=5}
 : ${WORKER_ENV_VERBOSE=1}
