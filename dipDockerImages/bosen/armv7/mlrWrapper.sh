@@ -8,6 +8,13 @@
 : ${TRAINING_TIMEOUT:=0}
 
 #
+# force some system limits
+#
+
+# prevent core dumps
+ulimit -c 0
+
+#
 # This comes from the documentation
 #
 
