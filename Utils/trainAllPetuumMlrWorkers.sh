@@ -114,11 +114,13 @@ mkdir -p "${LOCAL_OUTPUT_DIR}"
 #
 
 weave_net_hostname () {
+
     dockerd_host_hostname="$1"
+    worker_index="$2"
 
     dockerd_host_hostname_number="${dockerd_host_hostname##*-}"
 
-    overlay_hostname="mlr_worker_${dockerd_host_hostname_number}"
+    overlay_hostname=$( printf "mlr_worker_%02d" "${worker_index}" )
 
     echo "${overlay_hostname}"
 }
@@ -137,7 +139,7 @@ build_trainWorker_peer_arg_list () {
 
 	if ${use_weave_net}
 	then
-	    worker_hostname=$( weave_net_hostname "${worker_ssh_hostname}" )
+	    worker_hostname=$( weave_net_hostname "${worker_ssh_hostname}" "${worker_index}" )
 	else
 	    worker_hostname="${worker_ssh_hostname}"
 	fi
@@ -167,7 +169,7 @@ build_worker_mlr_cmd () {
 
     if ${use_weave_net}
     then
-	overlay_worker_hostname=`weave_net_hostname ${worker_ssh_hostname}`
+	overlay_worker_hostname=$( weave_net_hostname "${worker_ssh_hostname}" "${worker_index}" )
 	local_worker_command="\
 DOCKER_HOST=unix:///var/run/weave/weave.sock ORIG_DOCKER_HOST= \
 docker run \
