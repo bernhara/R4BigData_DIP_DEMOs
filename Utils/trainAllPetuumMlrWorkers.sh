@@ -23,6 +23,8 @@ fi
 : ${WORKER_ENV_TRAINING_TIMEOUT:=5}
 : ${WORKER_ENV_VERBOSE:=''}
 
+: ${DOCKER_TRAIN_IMAGE_NAME:=s-eunuc:5000/dip/mlr-worker:$( uname -m )-latest}
+
 Usage ()
 {
     if [ -n "$1" ]
@@ -148,6 +150,7 @@ build_trainWorker_peer_arg_list () {
 
 }
 
+
 build_worker_mlr_cmd () {
 
     worker_index="$1"
@@ -179,7 +182,7 @@ docker run \
    \
    -v /s-eunuc/users/orba6563/tmp/CORRECT_DOCKER_IMAGE/bosen/dipDockerImages/bosen/armv7/:/home/dip/bin/
    \
-   s-eunuc:5000/dip/mlr-worker:latest \
+   "${DOCKER_TRAIN_IMAGE_NAME}" \
    /home/dip/bin/trainWorker.sh --my_wk_id=${worker_index} ${trainWorker_peer_arg_list} -- ${TRAINING_ARGs} \
 "
     else
