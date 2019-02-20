@@ -180,7 +180,7 @@ docker run \
    -v ${worker_ssh_remote_path_specification}/:/home/dip/datasets/:ro \
    -v ${worker_remote_output_prefix}/:/tmp/mlr_out/ \
    \
-   -v /s-eunuc/users/orba6563/tmp/CORRECT_DOCKER_IMAGE/bosen/dipDockerImages/bosen/armv7/:/home/dip/bin/
+   -v /s-eunuc/users/orba6563/tmp/CORRECT_DOCKER_IMAGE/bosen/dipDockerImages/bosen/armv7/:/home/dip/bin/ \
    \
    "${DOCKER_TRAIN_IMAGE_NAME}" \
    /home/dip/bin/trainWorker.sh --my_wk_id=${worker_index} ${trainWorker_peer_arg_list} -- ${TRAINING_ARGs} \
