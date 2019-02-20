@@ -13,7 +13,7 @@ DEMO_ROOT_DIR="${HERE}/.."
 export tmp_dir
 
 # limit training time to 5mn
-: ${WORKER_ENV_TRAINING_TIMEOUT=2}
+: ${WORKER_ENV_TRAINING_TIMEOUT=5}
 : ${WORKER_ENV_VERBOSE=1}
 
 NB_WORKERs=8
