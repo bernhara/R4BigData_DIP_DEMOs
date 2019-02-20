@@ -161,6 +161,12 @@ else
     file_location_suffix=""
 fi
 
+#
+# provide result in "out" folder
+#
+
+mkdir -p "${DEMO_ROOT_DIR}/out"
+
 cp "${TMP_DIR}/input_file_as_libsvm.train.txt" "${DEMO_ROOT_DIR}/out/${OUTPUT_FILE_NAME_PREFIX}.libsvm.train.txt${file_location_suffix}"
 cp "${TMP_DIR}/input_file_as_libsvm.train.txt.meta" "${DEMO_ROOT_DIR}/out/${OUTPUT_FILE_NAME_PREFIX}.libsvm.train.txt${file_location_suffix}.meta"
 
