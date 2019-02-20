@@ -5,18 +5,15 @@ CMD=$( basename $0 )
 
 DEMO_ROOT_DIR="${HERE}/.."
 
-: ${DEFAULT_REMOTE_DATASET_DIR:=/home/orba6563/PETUUM/DEMOs/Orange4Home/datasets}
+: ${DEFAULT_REMOTE_DATASET_DIR:=$( readlink -f "${DEMO_ROOT_DIR}/out" )}
 : ${DEFAULT_REMOTE_USER:=orba6563}
-: ${DEFAULT_HOSTNAME_PREFIX:=s-pituum-}
 
 : ${tmp_dir:=`mktemp -u -p "${DEMO_ROOT_DIR}/tmp"`}
 # make this default for all child scripts
 export tmp_dir
 
-
-
 # limit training time to 5mn
-: ${WORKER_ENV_TRAINING_TIMEOUT=5}
+: ${WORKER_ENV_TRAINING_TIMEOUT=2}
 : ${WORKER_ENV_VERBOSE=1}
 
 NB_WORKERs=8
@@ -30,7 +27,7 @@ do
     eval "env_var_val=\"\${host_${worker_index}}\""
     if [ -z "${env_var_val}" ]
     then
-	remote_host="${DEFAULT_HOSTNAME_PREFIX}${worker_index}"
+	remote_host="localhost"
     else
 	remote_host="${env_var_val}"
     fi
