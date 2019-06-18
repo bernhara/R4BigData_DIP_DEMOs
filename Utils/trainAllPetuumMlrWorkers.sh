@@ -123,7 +123,6 @@ weave_net_hostname () {
     dockerd_host_hostname_number="${dockerd_host_hostname##*-}"
 
     overlay_hostname=$( printf "mlr_worker_%02d" "${worker_index}" )
-#!!!    overlay_hostname="${overlay_hostname}.weave.local"
 
     echo "${overlay_hostname}"
 }
