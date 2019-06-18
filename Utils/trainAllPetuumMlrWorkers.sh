@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -x
+
 HERE=`dirname $0`
 CMD=`basename $0`
 
@@ -121,6 +123,7 @@ weave_net_hostname () {
     dockerd_host_hostname_number="${dockerd_host_hostname##*-}"
 
     overlay_hostname=$( printf "mlr_worker_%02d" "${worker_index}" )
+#!!!    overlay_hostname="${overlay_hostname}.weave.local"
 
     echo "${overlay_hostname}"
 }
@@ -169,11 +172,13 @@ build_worker_mlr_cmd () {
 
     if ${use_weave_net}
     then
+
 	overlay_worker_hostname=$( weave_net_hostname "${worker_ssh_hostname}" "${worker_index}" )
 	local_worker_command="\
 DOCKER_HOST=unix:///var/run/weave/weave.sock ORIG_DOCKER_HOST= \
 docker run \
-   --rm -it \
+   -it \
+   --rm \
    --name ${overlay_worker_hostname} \
    \
    -e TRAINING_TIMEOUT="${WORKER_ENV_TRAINING_TIMEOUT}" \
@@ -185,6 +190,7 @@ docker run \
    "${DOCKER_TRAIN_IMAGE_NAME}" \
    /home/dip/bin/trainWorker.sh --my_wk_id=${worker_index} ${trainWorker_peer_arg_list} -- ${TRAINING_ARGs} \
 "
+
     else
 
 	# FIXME: is no more up to date
