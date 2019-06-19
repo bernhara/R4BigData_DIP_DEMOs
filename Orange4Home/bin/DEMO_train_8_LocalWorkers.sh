@@ -13,8 +13,8 @@ DEMO_ROOT_DIR="${HERE}/.."
 export tmp_dir
 
 # limit training time to 5mn
-: ${WORKER_ENV_TRAINING_TIMEOUT=5}
-: ${WORKER_ENV_VERBOSE=1}
+: ${WORKER_ENV_TRAINING_TIMEOUT:=5}
+: ${WORKER_ENV_VERBOSE:=1}
 
 NB_WORKERs=8
 
@@ -76,7 +76,8 @@ then
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --init_lr=0.01"
 
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --num_comm_channels_per_client=1"
-    MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --staleness=2"
+#!!    MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --staleness=2"
+    MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --staleness=0"
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --num_app_threads=3"
 
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --output_file_prefix=/tmp/ZZ_"
