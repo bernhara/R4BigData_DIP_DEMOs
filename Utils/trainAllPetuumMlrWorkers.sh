@@ -128,7 +128,7 @@ overlay_net_hostname () {
 
     overlay_hostname=$( printf "mlr_worker_%02d" "${worker_index}" )
     # FIXME: should not generated a new name at each run
-    overlay_hostname=$( printf "mlr_worker_%02d_%d" "${worker_index}" "${overlay_hostname_uid_suffix}" )
+    overlay_hostname=$( printf "mlr_worker_%02d_%d.weave.local" "${worker_index}" "${overlay_hostname_uid_suffix}" )
 
     echo "${overlay_hostname}"
 }
