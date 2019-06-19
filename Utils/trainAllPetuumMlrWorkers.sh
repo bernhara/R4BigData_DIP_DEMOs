@@ -115,10 +115,27 @@ mkdir -p "${LOCAL_OUTPUT_DIR}"
 # Launch MLR on all workerd
 #
 
-weave_net_hostname () {
+#
+# FIXME: get a better unique ID
+#
+overlay_hostname_uid_suffix=$$
+overlay_net_hostname () {
 
     dockerd_host_hostname="$1"
     worker_index="$2"
+
+    dockerd_host_hostname_number="${dockerd_host_hostname##*-}"
+
+    overlay_hostname=$( printf "mlr_worker_%02d" "${worker_index}" )
+    # FIXME: should not generated a new name at each run
+    overlay_hostname=$( printf "mlr_worker_%02d_%d" "${worker_index}" "${overlay_hostname_uid_suffix}" )
+
+    echo "${overlay_hostname}"
+}
+
+container_worker_name () {
+
+    worker_index="$1"
 
     dockerd_host_hostname_number="${dockerd_host_hostname##*-}"
 
@@ -143,7 +160,7 @@ build_trainWorker_peer_arg_list () {
 
 	if ${use_weave_net}
 	then
-	    worker_hostname=$( weave_net_hostname "${worker_ssh_hostname}" "${worker_index}" )
+	    worker_hostname=$( overlay_net_hostname "${worker_ssh_hostname}" "${worker_index}" )
 	else
 	    worker_hostname="${worker_ssh_hostname}"
 	fi
@@ -164,6 +181,8 @@ build_worker_mlr_cmd () {
     worker_ssh_hostname="$3"
     worker_ssh_remote_path_specification="$4"
 
+    container_name=$( container_worker_name "${worker_index}" )
+
     if [ -n "${worker_ssh_remote_user}" ]
     then
 	worker_ssh_remote_specification="${worker_ssh_remote_user}@${worker_ssh_hostname}"
@@ -174,13 +193,14 @@ build_worker_mlr_cmd () {
     if ${use_weave_net}
     then
 
-	overlay_worker_hostname=$( weave_net_hostname "${worker_ssh_hostname}" "${worker_index}" )
+	overlay_worker_hostname=$( overlay_net_hostname "${worker_ssh_hostname}" "${worker_index}" )
 	local_worker_command="\
 DOCKER_HOST=unix:///var/run/weave/weave.sock ORIG_DOCKER_HOST= \
 docker run \
    -it \
    --rm \
-   --name ${overlay_worker_hostname} \
+   --name "${container_name}" \
+   --hostname "${overlay_worker_hostname}" \
    \
    -e TRAINING_TIMEOUT="${WORKER_ENV_TRAINING_TIMEOUT}" \
    -e VERBOSE="${WORKER_ENV_VERBOSE}" \
