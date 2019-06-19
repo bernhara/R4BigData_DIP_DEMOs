@@ -116,9 +116,9 @@ mkdir -p "${LOCAL_OUTPUT_DIR}"
 #
 
 #
-# generate a uid for this run which will be appended to all hostnames
+# generate a uid constant for this run which will be appended to all hostnames
 #
-overlay_hostname_uid_suffix=$( mktemp -u XXXXXX | tr '[:upper:]' '[:lower:]' )
+typeset -r overlay_hostname_uid_suffix=$( mktemp -u XXXXXX | tr '[:upper:]' '[:lower:]' )
 
 overlay_net_hostname () {
 
