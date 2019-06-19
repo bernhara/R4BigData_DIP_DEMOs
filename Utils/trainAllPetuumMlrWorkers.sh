@@ -116,22 +116,16 @@ mkdir -p "${LOCAL_OUTPUT_DIR}"
 #
 
 #
-# initialize overlay_hostname_uid_suffix to '' => will be generated on the fly
+# generate a uid for this run which will be appended to all hostnames
 #
-overlay_hostname_uid_suffix=''
+overlay_hostname_uid_suffix=$( mktemp -u XXXXXX | tr '[:upper:]' '[:lower:]' )
 
 overlay_net_hostname () {
 
     dockerd_host_hostname="$1" # NOT USED
     worker_index="$2"
 
-    if [ -z "${overlay_net_hostname}" ]
-    then
-	# if no UID has been generated upto now, generate one
-	overlay_hostname_uid_suffix=$( uuidgen -t )
-    fi
-
-    overlay_hostname=$( printf "mlr_worker_%02d_%s" "${worker_index}" "${overlay_hostname_uid_suffix}" )
+    overlay_hostname=$( printf "mlr_worker_%02d-%s" "${worker_index}" "${overlay_hostname_uid_suffix}" )
 
     if ${use_weavenet}
     then
