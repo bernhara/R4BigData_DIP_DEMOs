@@ -1,7 +1,5 @@
 #! /bin/bash
 
-set -x
-
 HERE=`dirname $0`
 CMD=`basename $0`
 
