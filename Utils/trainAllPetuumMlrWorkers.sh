@@ -100,7 +100,7 @@ fi
 : ${remove_tmp:=true}
 : ${tmp_dir:=`mktemp -u -p "${HERE}/tmp"`}
 
-: ${use_weave_net:=true}
+: ${use_weavenet:=true}
 
 if ${remove_tmp}
 then
@@ -158,7 +158,7 @@ build_trainWorker_peer_arg_list () {
 	worker_ssh_hostname="$3"
 	worker_ssh_remote_path_specification="$4"
 
-	if ${use_weave_net}
+	if ${use_weavenet}
 	then
 	    worker_hostname=$( overlay_net_hostname "${worker_ssh_hostname}" "${worker_index}" )
 	else
@@ -190,7 +190,7 @@ build_worker_mlr_cmd () {
 	worker_ssh_remote_specification="${worker_ssh_hostname}"
     fi
 
-    if ${use_weave_net}
+    if ${use_weavenet}
     then
 
 	overlay_worker_hostname=$( overlay_net_hostname "${worker_ssh_hostname}" "${worker_index}" )
