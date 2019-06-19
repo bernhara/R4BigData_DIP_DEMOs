@@ -76,8 +76,7 @@ then
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --init_lr=0.01"
 
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --num_comm_channels_per_client=1"
-#!!    MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --staleness=2"
-    MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --staleness=0"
+    MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --staleness=2"
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --num_app_threads=3"
 
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --output_file_prefix=/tmp/ZZ_"
