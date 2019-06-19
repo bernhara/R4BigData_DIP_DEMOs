@@ -5,8 +5,8 @@ CMD=$( basename $0 )
 
 DEMO_ROOT_DIR="${HERE}/.."
 
-: ${DEFAULT_REMOTE_DATASET_DIR:=/home/orba6563/PETUUM/DEMOs/Orange4Home/datasets}
-: ${DEFAULT_REMOTE_USER:=orba6563}
+: ${DEFAULT_REMOTE_DATASET_DIR:=/home/dip/DEMOs/Orange4Home/datasets}
+: ${DEFAULT_REMOTE_USER:=dip}
 : ${DEFAULT_HOSTNAME_PREFIX:=s-pituum-}
 
 : ${tmp_dir:=`mktemp -u -p "${DEMO_ROOT_DIR}/tmp"`}
