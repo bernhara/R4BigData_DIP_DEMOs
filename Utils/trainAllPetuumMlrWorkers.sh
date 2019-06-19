@@ -137,13 +137,9 @@ container_worker_name () {
 
     worker_index="$1"
 
-    dockerd_host_hostname_number="${dockerd_host_hostname##*-}"
+    container_name=$( printf "mlr_worker_%02d" "${worker_index}" )
 
-    overlay_hostname=$( printf "mlr_worker_%02d" "${worker_index}" )
-    # FIXME: should not generated a new name at each run
-    overlay_hostname=$( printf "mlr_worker_%02d_%d" "${worker_index}" $$ )
-
-    echo "${overlay_hostname}"
+    echo "${container_name}"
 }
 
 build_trainWorker_peer_arg_list () {
