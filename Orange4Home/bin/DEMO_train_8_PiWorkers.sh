@@ -21,6 +21,8 @@ export tmp_dir
 
 NB_WORKERs=8
 
+DOCKER_TRAIN_IMAGE_NAME=s-eunuc:5000/dip/mlr-worker:armv7l-latest
+
 trainAllWorkersArgs=''
 
 for i in $( seq 1 ${NB_WORKERs} )
@@ -88,4 +90,5 @@ fi
 TRAINING_ARGs="${MLR_TRAINING_ARGs}" \
 WORKER_ENV_TRAINING_TIMEOUT="${WORKER_ENV_TRAINING_TIMEOUT}" \
 WORKER_ENV_VERBOSE="${WORKER_ENV_VERBOSE=1}" \
+DOCKER_TRAIN_IMAGE_NAME="${DOCKER_TRAIN_IMAGE_NAME}" \
 "${DEMO_ROOT_DIR}/../Utils/trainAllPetuumMlrWorkers.sh" ${trainAllWorkersArgs}
