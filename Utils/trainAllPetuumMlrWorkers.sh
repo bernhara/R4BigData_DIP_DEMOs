@@ -127,7 +127,7 @@ overlay_net_hostname () {
 
     if ${use_weavenet}
     then
-	overlay_hostname="${overlay_hostname}.weave.local"
+	XXXXoverlay_hostname="${overlay_hostname}.weave.local"
     fi
 
     echo "${overlay_hostname}"
@@ -193,7 +193,7 @@ build_worker_mlr_cmd () {
 	local_worker_command="\
 DOCKER_HOST=unix:///var/run/weave/weave.sock ORIG_DOCKER_HOST= \
 docker run \
-   -it \
+   -t \
    --rm \
    --name "${container_name}" \
    --hostname "${overlay_worker_hostname}" \
