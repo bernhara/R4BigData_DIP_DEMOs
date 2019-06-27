@@ -123,11 +123,11 @@ overlay_net_hostname () {
     dockerd_host_hostname="$1" # NOT USED
     worker_index="$2"
 
-    overlay_hostname=$( printf "mlr_worker_%02d-%s" "${worker_index}" "${overlay_hostname_uid_suffix}" )
+    overlay_hostname=$( printf "wkr%02d-%s" "${worker_index}" "${overlay_hostname_uid_suffix}" )
 
     if ${use_weavenet}
     then
-	XXXXoverlay_hostname="${overlay_hostname}.weave.local"
+	overlay_hostname="${overlay_hostname}.weave.local"
     fi
 
     echo "${overlay_hostname}"
