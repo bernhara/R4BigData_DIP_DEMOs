@@ -79,7 +79,7 @@ then
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --staleness=2"
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --num_app_threads=3"
 
-    MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --output_file_prefix=/tmp/ZZ_"
+    MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --output_file_prefix=/tmp/mlr_out/worker_"
 fi
 
 TRAINING_ARGs="${MLR_TRAINING_ARGs}" \
