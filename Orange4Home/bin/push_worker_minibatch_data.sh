@@ -71,15 +71,12 @@ push_to_elastic ()
 
 
 
-while true
-do
-    read line
-    num_labels=${line#*:}
-    read line
-    feature_dim=${line#*:}
+read line
+num_labels=${line#*:}
+read line
+feature_dim=${line#*:}
 
-    mapfile -n ${num_labels} weights
+mapfile -n ${num_labels} weights
 
-    svm_elastic_json ${num_labels} ${feature_dim} "${weights[@]}"
+svm_elastic_json ${num_labels} ${feature_dim} "${weights[@]}"
 
-done
