@@ -22,11 +22,13 @@ get_distance_to_optimal ()
 
     num_labels=$1
     feature_dim=$2
+
+    computed_distance=$$
     
     shift 2
     declare -a label_lines=( "$@" )
 
-    echo 12
+    echo ${computed_distance}
     return
 
     echo '================ START'
