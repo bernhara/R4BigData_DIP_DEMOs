@@ -73,12 +73,12 @@ push_to_elastic ()
 
 while true
 do
-    read line < "${in_file_name}"
+    read line
     num_labels=${line#*:}
-    read line < "${in_file_name}"
+    read line
     feature_dim=${line#*:}
 
-    mapfile -n ${num_labels} weights < "${in_file_name}"
+    mapfile -n ${num_labels} weights
 
     svm_elastic_json ${num_labels} ${feature_dim} "${weights[@]}"
 
