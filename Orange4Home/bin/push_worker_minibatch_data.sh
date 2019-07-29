@@ -17,21 +17,24 @@ then
     in_file_name=${data_in_file_pipe}
 fi
 
-svm_elastic_json ()
+get_distance_to_optimal ()
 {
 
     num_labels=$1
     feature_dim=$2
     
     shift 2
-    label_lines="$@"
+    declare -a label_lines=( "$@" )
+
+    echo 12
+    return
 
     echo '================ START'
 
 
-    for i in seq $num_labels
+    for i in seq ${num_labels}
     do
-	echo "$i ==> label_lines[$i]"
+	echo "$i ==> ${label_lines[$i]}"
     done
 
     echo '================ END'
@@ -41,6 +44,8 @@ svm_elastic_json ()
 
 push_to_elastic ()
 {
+
+    distance="$1"
 
     : ${worker_name:=TEST}
 
@@ -78,5 +83,6 @@ feature_dim=${line#*:}
 
 mapfile -n ${num_labels} weights
 
-svm_elastic_json ${num_labels} ${feature_dim} "${weights[@]}"
+distance_to_optimal=$( get_distance_to_optimal ${num_labels} ${feature_dim} "${weights[@]}" )
 
+push_to_elastic ${distance_to_optimal}
