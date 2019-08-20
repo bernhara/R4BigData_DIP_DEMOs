@@ -20,6 +20,7 @@ fi
 # list of extra args added to the trainWorker command
 #
 : ${TRAINING_ARGs:=''}
+: ${TRAIN_WORKER_ARGs:=''}
 : ${WORKER_ENV_TRAINING_TIMEOUT:=5}
 : ${WORKER_ENV_VERBOSE:=''}
 
@@ -202,10 +203,10 @@ docker run \
    -e VERBOSE="${WORKER_ENV_VERBOSE}" \
    \
    -v ${worker_ssh_remote_path_specification}/:/home/dip/datasets/:ro \
-   -v ${worker_remote_output_prefix}/:/tmp/mlr_out/ \
+   -v ${worker_remote_output_prefix}/:/home/dip/mlr_out/ \
    \
    "${DOCKER_TRAIN_IMAGE_NAME}" \
-   /home/dip/bin/trainWorker.sh --my_wk_id=${worker_index} ${trainWorker_peer_arg_list} -- ${TRAINING_ARGs} \
+   /home/dip/bin/trainWorker.sh --my_wk_id=${worker_index} ${trainWorker_peer_arg_list} ${TRAIN_WORKER_ARGs} -- ${TRAINING_ARGs} \
 "
 
     else
