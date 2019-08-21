@@ -88,7 +88,7 @@ then
 
     if [ -z "${SKIP_STATISTICs}" ]
     then
-	TRAIN_WORKER_ARGs="${TRAIN_WORKER_ARGs} --dip_stats_elasticsearch_url=http://s-eunuc:9200"
+	TRAIN_WORKER_ARGs="${TRAIN_WORKER_ARGs} --dip_stats_elasticsearch_url=http://s-eunuc.rd.francetelecom.fr:9200"
 	TRAIN_WORKER_ARGs="${TRAIN_WORKER_ARGs} --dip_stats_target_weight_matrix_file=/home/dip/datasets/o4h_target.weights.txt"
     fi
 
