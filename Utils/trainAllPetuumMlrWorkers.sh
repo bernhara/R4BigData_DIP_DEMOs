@@ -201,6 +201,7 @@ docker run \
    \
    -e TRAINING_TIMEOUT="${WORKER_ENV_TRAINING_TIMEOUT}" \
    -e VERBOSE="${WORKER_ENV_VERBOSE}" \
+   -e STATS_WORKER_NAME="${container_name}" \
    \
    -v ${worker_ssh_remote_path_specification}/:/home/dip/datasets/:ro \
    -v ${worker_remote_output_prefix}/:/home/dip/mlr_out/ \
