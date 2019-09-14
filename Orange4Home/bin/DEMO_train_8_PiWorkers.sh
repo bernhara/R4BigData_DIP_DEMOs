@@ -84,7 +84,18 @@ then
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --staleness=2"
     MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --num_app_threads=3"
 
-    MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --output_file_prefix=/tmp/ZZ_"
+    MLR_TRAINING_ARGs="${MLR_TRAINING_ARGs} --output_file_prefix=/home/dip/mlr_out/worker_"
+fi
+
+if [ -z "${TRAIN_WORKER_ARGs}" ]
+then
+
+    if [ -z "${SKIP_STATISTICs}" ]
+    then
+	TRAIN_WORKER_ARGs="${TRAIN_WORKER_ARGs} --dip_stats_elasticsearch_url=http://s-eunuc.pinet:9200"
+	TRAIN_WORKER_ARGs="${TRAIN_WORKER_ARGs} --dip_stats_target_weight_matrix_file=/home/dip/datasets/o4h_target.weights.txt"
+    fi
+
 fi
 
 TRAINING_ARGs="${MLR_TRAINING_ARGs}" \
