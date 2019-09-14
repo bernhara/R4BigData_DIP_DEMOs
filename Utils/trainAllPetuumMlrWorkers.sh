@@ -207,7 +207,6 @@ docker run \
    -t \
    --rm \
    --name "${container_name}" \
-   --hostname "${overlay_worker_hostname}" \
    \
    -e TRAINING_TIMEOUT="${WORKER_ENV_TRAINING_TIMEOUT}" \
    -e VERBOSE="${WORKER_ENV_VERBOSE}" \
