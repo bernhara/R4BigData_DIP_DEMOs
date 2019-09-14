@@ -130,7 +130,7 @@ weave_overlay_worker_fixed_ip_address () {
     weavenet_fixed_ip_address_suffix_int=$(( 10 + ${worker_index} ))
     weavenet_fixed_ip_address=$( printf "10.32.1.%03d" "${weavenet_fixed_ip_address_suffix_int}" )
 
-    echo "{weavenet_fixed_ip_address}"
+    echo "${weavenet_fixed_ip_address}"
 }
 
 overlay_net_hostname () {
@@ -171,7 +171,7 @@ build_trainWorker_peer_arg_list () {
 
 	if ${use_weavenet}
 	then
-	    worker_hostname=$( overlay_net_hostname "${worker_ssh_hostname}" "${worker_index}" )
+	    worker_hostname=$( weave_overlay_worker_fixed_ip_address "${worker_ssh_hostname}" "${worker_index}" )
 	else
 	    worker_hostname="${worker_ssh_hostname}"
 	fi
@@ -204,6 +204,7 @@ build_worker_mlr_cmd () {
     if ${use_weavenet}
     then
 
+	set -x
 	# FIXME: not used
 	overlay_worker_hostname=$( overlay_net_hostname "${worker_ssh_hostname}" "${worker_index}" )
 
@@ -229,6 +230,7 @@ docker run \
    "${DOCKER_TRAIN_IMAGE_NAME}" \
    /home/dip/bin/trainWorker.sh --my_wk_id=${worker_index} ${trainWorker_peer_arg_list} ${TRAIN_WORKER_ARGs} -- ${TRAINING_ARGs} \
 "
+	set +x
 
     else
 
