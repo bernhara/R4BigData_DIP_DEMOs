@@ -127,7 +127,7 @@ weave_overlay_worker_fixed_ip_address () {
     dockerd_host_hostname="$1" # NOT USED
     worker_index="$2"
 
-    weavenet_fixed_ip_address_suffix_int=$(( 10 + ${worker_index} ))
+    weavenet_fixed_ip_address_suffix_int=$(( 100 + ${worker_index} ))
     weavenet_fixed_ip_address=$( printf "10.32.1.%03d" "${weavenet_fixed_ip_address_suffix_int}" )
 
     echo "${weavenet_fixed_ip_address}"
