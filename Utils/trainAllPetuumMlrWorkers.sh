@@ -124,6 +124,12 @@ overlay_net_hostname () {
     dockerd_host_hostname="$1" # NOT USED
     worker_index="$2"
 
+    weavenet_fixed_ip_address_suffix_int=$(( 10 + ${worker_index} ))
+    weavenet_fixed_ip_address=$( printf "10.32.1.%03d" "${weavenet_fixed_ip_address_suffix_int}" )
+
+    echo "{weavenet_fixed_ip_address}"
+    return
+    
     overlay_hostname=$( printf "wkr%02d-%s" "${worker_index}" "${overlay_hostname_uid_suffix}" )
 
     if ${use_weavenet}
@@ -190,12 +196,10 @@ build_worker_mlr_cmd () {
     if ${use_weavenet}
     then
 
-	weavenet_fixed_ip_address_suffix_int=$(( 10 + ${worker_index} ))
-	weavenet_fixed_ip_address=$( printf "10.32.1.%03d" "${weavenet_fixed_ip_address_suffix_int}" )
-	weavenet_fixed_ip_address_configuration_env="${weavenet_fixed_ip_address}/24"
-
 	overlay_worker_hostname=$( overlay_net_hostname "${worker_ssh_hostname}" "${worker_index}" )
 
+	weavenet_fixed_ip_address=$( overlay_worker_hostname )
+	weavenet_fixed_ip_address_configuration_env="${weavenet_fixed_ip_address}/24"
 
 	local_worker_command="\
 DOCKER_HOST=unix:///var/run/weave/weave.sock ORIG_DOCKER_HOST= \
