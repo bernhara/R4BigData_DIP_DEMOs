@@ -190,7 +190,14 @@ build_worker_mlr_cmd () {
     if ${use_weavenet}
     then
 
+	set -x
+	weavenet_fixed_ip_address_suffix_int=$(( 10 + ${worker_index} ))
+	weavenet_fixed_ip_address=$( printf "10.32.1.%03d" "${weavenet_fixed_ip_address_suffix_int}" )
+	exit 1
+
 	overlay_worker_hostname=$( overlay_net_hostname "${worker_ssh_hostname}" "${worker_index}" )
+
+
 	local_worker_command="\
 DOCKER_HOST=unix:///var/run/weave/weave.sock ORIG_DOCKER_HOST= \
 docker run \
@@ -202,6 +209,8 @@ docker run \
    -e TRAINING_TIMEOUT="${WORKER_ENV_TRAINING_TIMEOUT}" \
    -e VERBOSE="${WORKER_ENV_VERBOSE}" \
    -e STATS_WORKER_NAME="${container_name}" \
+   \
+   -e "WEAVE_CIDR=10.32.1.102/24"
    \
    -v ${worker_ssh_remote_path_specification}/:/home/dip/datasets/:ro \
    -v ${worker_remote_output_prefix}/:/home/dip/mlr_out/ \
