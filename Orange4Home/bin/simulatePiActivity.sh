@@ -1,8 +1,10 @@
 #! /bin/bash
 
-remote_command="timeout 3s /bin/bash -c 'while true; do touch /tmp/nothing; t=$( shuf -i1-9 -n1 ); sleep 0.0$t; echo \$\$; done'"
+: ${SIMULATION_DELAY:=30s}
+
+remote_command="set -x; hostname; timeout ${SIMULATION_DELAY} /bin/bash -c 'mkdir -p /persist_store/DEMOs/tmp; while true; do touch /persist_store/DEMOs/tmp/nothing; sync; t=$( shuf -i1-9 -n1 ); sleep 0.$t; echo \$\$; hostname; done'"
 for i in 01 02 03 04 05 06 07 08
 do
-    ssh -f s-pituum-$i "${remote_command}"
+    ssh s-pituum-$i "${remote_command}"
 done
 
