@@ -15,6 +15,6 @@ sleep 3
 sleep 3
 
 "${HERE}"/DEMO_train_8_LocalWorkers.sh &
-SIMULATION_DELAY=60s "${HERE}/simulatePiActivity.sh &
+SIMULATION_DELAY=60s "${HERE}"/simulatePiActivity.sh &
 
 wait
