@@ -215,7 +215,6 @@ build_worker_mlr_cmd () {
 	overlay_worker_hostname=$( overlay_net_hostname "${worker_ssh_hostname}" "${worker_index}" )
 
 	weavenet_fixed_ip_address=$( weave_overlay_worker_fixed_ip_address "${worker_ssh_hostname}" "${worker_index}" )
-	weavenet_fixed_ip_address_configuration_env="${weavenet_fixed_ip_address}/24"
 
 	local_worker_command="\
 DOCKER_HOST=unix:///var/run/weave/weave.sock ORIG_DOCKER_HOST= \
