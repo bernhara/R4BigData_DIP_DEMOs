@@ -130,6 +130,9 @@ weave_overlay_worker_fixed_ip_address () {
     weavenet_fixed_ip_address_suffix_int=$(( 100 + ${worker_index} ))
     weavenet_fixed_ip_address=$( printf "10.32.1.%03d" "${weavenet_fixed_ip_address_suffix_int}" )
 
+    # TODO: test
+    weavenet_fixed_ip_address=$( overlay_net_hostname "${dockerd_host_hostname}" "${worker_index}" )
+
     echo "${weavenet_fixed_ip_address}"
 }
 
@@ -139,6 +142,9 @@ overlay_net_hostname () {
     worker_index="$2"
 
     overlay_hostname=$( printf "wkr%02d-%s" "${worker_index}" "${overlay_hostname_uid_suffix}" )
+
+    # TODO
+    overlay_hostname=$( container_worker_name "${worker_index}" )
 
     if ${use_weavenet}
     then
@@ -222,7 +228,7 @@ docker run \
    -e VERBOSE="${WORKER_ENV_VERBOSE}" \
    -e STATS_WORKER_NAME="${container_name}" \
    \
-   -e "WEAVE_CIDR=${weavenet_fixed_ip_address_configuration_env}"
+   -e "XXXXX_WEAVE_CIDR=${weavenet_fixed_ip_address_configuration_env}"
    \
    -v ${worker_ssh_remote_path_specification}/:/home/dip/datasets/:ro \
    -v ${worker_remote_output_prefix}/:/home/dip/mlr_out/ \
