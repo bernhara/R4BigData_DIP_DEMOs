@@ -121,7 +121,7 @@ typeset -r overlay_hostname_uid_suffix=$( mktemp -u XXXXXX | tr '[:upper:]' '[:l
 
 weave_overlay_worker_fixed_ip_address () {
 
-    # tODO: the address range is hard coded
+    # TODO: the address range is hard coded
     # depends how weave has been launched
 
     dockerd_host_hostname="$1" # NOT USED
@@ -143,12 +143,12 @@ overlay_net_hostname () {
 
     overlay_hostname=$( printf "wkr%02d-%s" "${worker_index}" "${overlay_hostname_uid_suffix}" )
 
-    # TODO
+    # TODO: use correct version
     overlay_hostname=$( container_worker_name "${worker_index}" )
 
     if ${use_weavenet}
     then
-	overlay_hostname="${overlay_hostname}.weave.local"
+	overlay_hostname="w_${overlay_hostname}.weave.local"
     fi
 
     echo "${overlay_hostname}"
@@ -177,7 +177,7 @@ build_trainWorker_peer_arg_list () {
 
 	if ${use_weavenet}
 	then
-	    worker_hostname=$( weave_overlay_worker_fixed_ip_address "${worker_ssh_hostname}" "${worker_index}" )
+	    worker_hostname=$( overlay_net_hostname "${worker_ssh_hostname}" "${worker_index}" )
 	else
 	    worker_hostname="${worker_ssh_hostname}"
 	fi
@@ -222,6 +222,7 @@ docker run \
    -t \
    --rm \
    --name "${container_name}" \
+   --hostname "${overlay_worker_hostname}" \
    \
    -e TRAINING_TIMEOUT="${WORKER_ENV_TRAINING_TIMEOUT}" \
    -e VERBOSE="${WORKER_ENV_VERBOSE}" \
