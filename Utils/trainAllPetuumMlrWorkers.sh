@@ -228,8 +228,6 @@ docker run \
    -e VERBOSE="${WORKER_ENV_VERBOSE}" \
    -e STATS_WORKER_NAME="${container_name}" \
    \
-   -e "XXXXX_WEAVE_CIDR=${weavenet_fixed_ip_address_configuration_env}"
-   \
    -v ${worker_ssh_remote_path_specification}/:/home/dip/datasets/:ro \
    -v ${worker_remote_output_prefix}/:/home/dip/mlr_out/ \
    \
